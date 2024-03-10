@@ -6,8 +6,8 @@ import { VotosEmAbstencao } from "./VotosEmAbstencao";
 @Entity('report')
 export class Report{
 
-    @PrimaryGeneratedColumn('uuid')
-    id: string
+    @PrimaryGeneratedColumn()
+    id: number
 
     @Column({type: 'text', nullable: false})
     theme: string
@@ -42,22 +42,22 @@ export class Report{
     @Column({ type: 'text'})
     comment: string
 
-    @CreateDateColumn({ name: 'create_at'})
-    create_at: Date
+    @Column({type: 'text'})
+    create_at: string
 
-    @OneToOne(() => VotosContra, (votoscontra) => votoscontra.report)
+    @OneToOne(() => VotosContra, (votoscontra) => votoscontra.report, { eager: true})
     @JoinColumn({
         name: 'votoscontra_id'
     })
     votoscontra: VotosContra
  
-    @OneToOne(() => VotosFavor, (votosfavor) => votosfavor.report)
+    @OneToOne(() => VotosFavor, (votosfavor) => votosfavor.report, { eager: true})
     @JoinColumn({
         name: 'votosfavor_id'
     })
     votosfavor: VotosFavor
 
-    @OneToOne( () => VotosEmAbstencao, (votosemabstencao) => votosemabstencao.report)
+    @OneToOne( () => VotosEmAbstencao, (votosemabstencao) => votosemabstencao.report, { eager: true})
     @JoinColumn({
         name: 'votosemabstencao_id'
     })

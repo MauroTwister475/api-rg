@@ -2,10 +2,10 @@ import { Request, Response } from 'express'
 import { VotosFavorRepository } from '../repositories/VotosFavorRepository'
 export class VotosFavorController{
     async create(req: Request, res: Response){
-        const { members } = req.body
+        const { agree } = req.body
 
         const newVotoFavor = VotosFavorRepository.create({
-            members
+            members: agree
         })
 
         await VotosFavorRepository.save(newVotoFavor)
@@ -14,7 +14,7 @@ export class VotosFavorController{
     }
 
     async index (req: Request, res: Response){
-        const id = await VotosFavorRepository.createQueryBuilder('votosfavor').orderBy('votosfavor.id', 'ASC').getOne()
+        const id = await VotosFavorRepository.createQueryBuilder('votosfavor').orderBy('votosfavor.id', 'DESC').getOne()
 
         return res.status(200).json(id)
     }

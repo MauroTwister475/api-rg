@@ -4,10 +4,10 @@ import { VotosEmAbstencaoRepository } from '../repositories/VotosEmAbstencaoRepo
 export class VotosEmAbstencaoController{
 
     async create(req: Request, res: Response){
-        const { members } = req.body
+        const { abst } = req.body
 
         const newVotoEmAbstencao = VotosEmAbstencaoRepository.create({
-            members
+            members: abst
         })
 
         await VotosEmAbstencaoRepository.save(newVotoEmAbstencao)
@@ -16,7 +16,7 @@ export class VotosEmAbstencaoController{
     }
 
     async index(req: Request, res: Response){
-        const id = await VotosEmAbstencaoRepository.createQueryBuilder('votosemabstencao').orderBy('votosemabstencao.id', 'ASC').getOne()
+        const id = await VotosEmAbstencaoRepository.createQueryBuilder('votosemabstencao').orderBy('votosemabstencao.id', 'DESC').getOne()
 
         return res.status(200).json(id)
     }
