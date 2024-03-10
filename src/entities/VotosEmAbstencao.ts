@@ -1,29 +1,30 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Member } from "./Member";
 import { Report } from "./Report";
 
-@Entity('votosfavor')
-export class VotosFavor{
+@Entity('votosemabstencao')
+export class VotosEmAbstencao{
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({type: 'text', default: 'Concorda'})
+    @Column({type: 'text', default: 'Em abstenção'})
     status: string
 
     @ManyToMany(()  => Member, (member) => member.votoscontra, { eager: true})
     @JoinTable({
-        name: 'votosFavor_members',
+        name: 'votosEmAbstencao_members',
         joinColumn: {
             name: 'member_id',
             referencedColumnName: 'id'
         }, inverseJoinColumn: {
-            name: 'votosFavor_id',
+            name: 'votosEmAbstencao_id',
             referencedColumnName: 'id'
         }
         
     })
     members: Member[]
 
-    @OneToOne(() => Report, (report) => report.votosfavor)
+    @OneToOne( () => Report, (report) => report.votosemabstencao)
     report: Report
+
 }
