@@ -3,7 +3,7 @@ import { ReportRepository } from "../repositories/ReportRepository"
 
 export default new class  ReporController{
     async create(req: Request, res: Response){
-        const { theme, title, point, reference, atribuition, cod_document, Angola_participation, decision, summary, meeting_number, comment, create_at, votoscontra, votosfavor, votosemabstencao} = req.body
+        const { theme, title, point, reference, atribuition, cod_document, Angola_participation, decision, summary, meeting_number, comment, create_at, votoscontra, votosfavor, votosemabstencao, author, tendencies } = req.body
         
         const newReport = ReportRepository.create({
             theme,
@@ -21,6 +21,8 @@ export default new class  ReporController{
             votoscontra,
             votosfavor,
             votosemabstencao, 
+            author,
+            tendencies,
         })
 
         await ReportRepository.save(newReport)
