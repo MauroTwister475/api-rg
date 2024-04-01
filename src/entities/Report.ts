@@ -45,6 +45,12 @@ export class Report{
     @Column({type: 'text'})
     create_at: string
 
+    @Column({type: 'text', nullable: false})
+    author: string
+
+    @Column({type: 'text', nullable: false})
+    tendencies: string
+
     @OneToOne(() => VotosContra, (votoscontra) => votoscontra.report, { eager: true})
     @JoinColumn({
         name: 'votoscontra_id'
