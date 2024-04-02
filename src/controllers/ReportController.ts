@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import { ReportRepository } from "../repositories/ReportRepository"
+import { BadRequestError } from "../helpers/api-erros"
 
 export default new class  ReporController{
     async create(req: Request, res: Response){
@@ -47,6 +48,10 @@ export default new class  ReporController{
         const id = req.params
         const report = await ReportRepository.delete(id)
 
-        res.status(200).json({ message: 'Relatório apagado com sucesso!'})
+        if(!report){
+            throw new BadRequestError('Professor não encontrado!')
+        }
+
+        return res.status(200).json({ message: 'Relatório apagado com sucesso!'})
     }
 }
