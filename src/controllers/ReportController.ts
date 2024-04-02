@@ -43,5 +43,10 @@ export default new class  ReporController{
 
         return res.status(200).json(report)
     }
+    async delete(req: Request, res: Response){
+        const id = req.params
+        const report = await ReportRepository.delete(id)
 
+        res.status(200).json({ message: 'Relatório apagado com sucesso!'})
+    }
 }
