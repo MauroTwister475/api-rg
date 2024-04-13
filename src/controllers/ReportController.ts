@@ -37,6 +37,18 @@ export default new class  ReporController{
         return res.status(200).json(recents_reports)
     }
 
+    async getRecents(req: Request, res: Response){
+        const recents_reports = await ReportRepository.createQueryBuilder().limit(5).getRawMany()
+
+        return res.status(200).json(recents_reports)
+    }
+    
+    async CountReport(req: Request, res: Response){
+        const count = await ReportRepository.count()
+
+        return res.status(200).json(count)
+    }
+
     async findOne(req: Request, res: Response){
         const id = req.params
 
