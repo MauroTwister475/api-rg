@@ -38,7 +38,7 @@ export default new class  ReporController{
     }
 
     async getRecents(req: Request, res: Response){
-        const recents_reports = await ReportRepository.createQueryBuilder().limit(5).getRawMany()
+        const recents_reports = await ReportRepository.createQueryBuilder().limit(5).orderBy('create_at', 'DESC').getRawMany()
 
         return res.status(200).json(recents_reports)
     }
