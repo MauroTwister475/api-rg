@@ -37,6 +37,40 @@ export default new class  ReporController{
         return res.status(200).json(recents_reports)
     }
 
+    async update(req: Request, res: Response){
+        const id = req.params
+        const { theme, title, point, reference, atribuition, cod_document, Angola_participation, decision, summary, meeting_number, comment, create_at, votoscontra, votosfavor, votosemabstencao, author, tendencies } = req.body
+        
+        const report = await ReportRepository.findOneBy(id)
+
+        if(!report){
+            throw new BadRequestError('Relatório não existe!')
+        }
+
+        await ReportRepository.update( id, {
+            theme,
+            title,
+            point,
+            reference,
+            atribuition,
+            cod_document,
+            Angola_participation,
+            decision,
+            summary,
+            meeting_number,
+            comment,
+            create_at,
+            votoscontra,
+            votosfavor,
+            votosemabstencao, 
+            author,
+            tendencies,
+        })
+
+
+        return res.status(204).json('Relatório actualizado com sucesso!...')
+    }
+
     async getRecents(req: Request, res: Response){
         const recents_reports = await ReportRepository.createQueryBuilder().limit(5).orderBy('create_at', 'DESC').getRawMany()
 
